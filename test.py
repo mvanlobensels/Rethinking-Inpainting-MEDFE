@@ -37,6 +37,9 @@ if __name__ == "__main__":
     model.netEN.module.load_state_dict(torch.load(model_files[2]))
     model.netDE.module.load_state_dict(torch.load(model_files[3]))
     model.netMEDFE.module.load_state_dict(torch.load(model_files[0]))
+    model.netEN.eval()
+    model.netDE.eval()
+    model.netMEDFE.eval()
 
     results_dir = r'./result'
     if not os.path.exists( results_dir):
