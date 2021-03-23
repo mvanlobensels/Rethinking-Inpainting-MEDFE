@@ -32,10 +32,11 @@ if __name__ == "__main__":
     # model.netEN.module.load_state_dict(torch.load("EN.pkl"))
     # model.netDE.module.load_state_dict(torch.load("DE.pkl"))
     # model.netMEDFE.module.load_state_dict(torch.load("MEDEF.pkl"))
-    param_paths = sorted(glob('./checkpoints/Mutual-Encoder-Decoder_10000_images_2_epochs/*.pth'), reverse = True)
-    print(param_paths[2])
-    print(param_paths[3])
-    print(param_paths[0])
+
+    model_files = sorted(glob('./checkpoints/Mutual-Encoder-Decoder_10000_images_2_epochs/*.pth'), reverse = True)
+    model.netEN.module.load_state_dict(torch.load(model_files[2]))
+    model.netDE.module.load_state_dict(torch.load(model_files[3]))
+    model.netMEDFE.module.load_state_dict(torch.load(model_files[0]))
 
     results_dir = r'./result'
     if not os.path.exists( results_dir):
