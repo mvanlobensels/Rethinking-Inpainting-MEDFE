@@ -34,9 +34,9 @@ if __name__ == "__main__":
     # model.netMEDFE.module.load_state_dict(torch.load("MEDEF.pkl"))
 
     model_files = sorted(glob('./checkpoints/Mutual-Encoder-Decoder_10000_images_2_epochs/*.pth'), reverse = True)
-    model.netEN.module.load_state_dict(torch.load(model_files[2]))
-    model.netDE.module.load_state_dict(torch.load(model_files[3]))
-    model.netMEDFE.module.load_state_dict(torch.load(model_files[0]))
+    model.netEN.load_state_dict(torch.load(model_files[2]))
+    model.netDE.load_state_dict(torch.load(model_files[3]))
+    model.netMEDFE.load_state_dict(torch.load(model_files[0]))
     model.netEN.eval()
     model.netDE.eval()
     model.netMEDFE.eval()
