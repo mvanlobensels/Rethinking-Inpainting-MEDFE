@@ -320,8 +320,8 @@ class PCconv(nn.Module):
         # The last three layers are Structure
         # x_DE = torch.cat([x_1, x_2, x_3], 1)
         # x_ST = torch.cat([x_4, x_5, x_6], 1)
-        x_DE = torch.cat([x_1, x_2, x_3, x_4, x_5, x_6], 1)
-        x_ST = torch.cat([x_1, x_2, x_3, x_4, x_5, x_6], 1)
+        x_DE = torch.cat([x_1, x_3, x_5], 1)
+        x_ST = torch.cat([x_2, x_4, x_6], 1)
 
         x_ST = self.down(x_ST)
         x_DE = self.down(x_DE)
