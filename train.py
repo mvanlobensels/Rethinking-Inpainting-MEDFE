@@ -21,6 +21,8 @@ if __name__ == "__main__":
     if not os.path.exists(dir):
         os.mkdir(dir)
     writer = SummaryWriter(log_dir=dir, comment=opt.name)
+
+
     # Start Training
     for epoch in range (1):
         epoch_start_time = time.time()
