@@ -307,19 +307,18 @@ class PCconv(nn.Module):
         x_3 = self.activation(input[2])
         x_4 = self.activation(input[3])
         x_5 = self.activation(input[4])
-        x_6 = self.activation(input[5])
+
         # Change the shape of each layer and intergrate low-level/high-level features
         x_1 = self.down_128(x_1)
         x_2 = self.down_64(x_2)
         x_3 = self.down_32(x_3)
         x_4 = self.up(x_4, (32, 32))
         x_5 = self.up(x_5, (32, 32))
-        x_6 = self.up(x_6, (32, 32))
 
         # The first three layers are Texture/detail
         # The last three layers are Structure
         x_DE = torch.cat([x_1, x_2, x_3], 1)
-        x_ST = torch.cat([x_4, x_5, x_6], 1)
+        x_ST = torch.cat([x_4, x_5], 1)
 
         x_ST = self.down(x_ST)
         x_DE = self.down(x_DE)
@@ -336,8 +335,7 @@ class PCconv(nn.Module):
         # Multi Scale PConv fill the Structure
         x_ST_3 = self.cov_3(x_ST)
         x_ST_5 = self.cov_5(x_ST)
-        x_ST_7 = self.cov_7(x_ST)
-        x_ST_fuse = torch.cat([x_ST_3[0], x_ST_5[0], x_ST_7[0]], 1)
+        x_ST_fuse = torch.cat([x_ST_3[0], x_ST_5[0]], 1)
         x_ST_fi = self.down(x_ST_fuse)
 
         x_cat = torch.cat([x_ST_fi, x_DE_fi], 1)
@@ -354,9 +352,8 @@ class PCconv(nn.Module):
         x_3 = self.up_32(x_DE, (32, 32)) + input[2]
         x_4 = self.down_16(x_ST) + input[3]
         x_5 = self.down_8(x_ST) + input[4]
-        x_6 = self.down_4(x_ST) + input[5]
 
-        out = [x_1, x_2, x_3, x_4, x_5, x_6]
+        out = [x_1, x_2, x_3, x_4, x_5]
         loss = [x_ST_fi, x_DE_fi]
         out_final = [out, loss]
         return out_final
