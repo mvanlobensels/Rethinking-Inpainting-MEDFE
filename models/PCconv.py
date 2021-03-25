@@ -337,7 +337,8 @@ class PCconv(nn.Module):
         # Multi Scale PConv fill the Structure
         x_ST_3 = self.cov_3(x_ST)
         x_ST_5 = self.cov_5(x_ST)
-        x_ST_7 - self.cov_7(x_ST)
+        x_ST_7 = self.cov_7(x_ST)
+
         x_ST_fuse = torch.cat([x_ST_3[0], x_ST_5[0], x_ST_7[0]], 1)
         x_ST_fi = self.down(x_ST_fuse)
 
