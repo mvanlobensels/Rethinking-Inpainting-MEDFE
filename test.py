@@ -32,10 +32,10 @@ if __name__ == "__main__":
     # model.netEN.module.load_state_dict(torch.load("EN.pkl"))
     # model.netDE.module.load_state_dict(torch.load("DE.pkl"))
     # model.netMEDFE.module.load_state_dict(torch.load("MEDEF.pkl"))
-    print('Model: ', model)
 
     model_files = sorted(glob("./checkpoints/Mutual Encoder-Decoder/*.pth"), reverse = True)
-    print(model_files)
+    checkpoint = torch.load(model_files[2])
+    print(checkpoint)
     model.netEN.load_state_dict(torch.load(model_files[2]))
     model.netDE.load_state_dict(torch.load(model_files[3]))
     model.netMEDFE.load_state_dict(torch.load(model_files[0]))
