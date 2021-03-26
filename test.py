@@ -35,10 +35,9 @@ if __name__ == "__main__":
 
     model_files = sorted(glob("./checkpoints/Mutual Encoder-Decoder/*.pth"), reverse = True)
     checkpoint = torch.load(model_files[2])
-    print(checkpoint)
-    model.netEN.module.load_state_dict(torch.load(model_files[2]))
-    model.netDE.module.load_state_dict(torch.load(model_files[3]))
-    model.netMEDFE.module.load_state_dict(torch.load(model_files[0]))
+    model.netEN.module.load_state_dict(torch.load(model_files[2])['net'])
+    model.netDE.module.load_state_dict(torch.load(model_files[3])['net'])
+    model.netMEDFE.module.load_state_dict(torch.load(model_files[0])['net'])
     model.netEN.eval()
     model.netDE.eval()
     model.netMEDFE.eval()
@@ -48,8 +47,8 @@ if __name__ == "__main__":
         os.mkdir(results_dir)
 
     mask_paths = glob('{:s}/*'.format(opt.mask_root))
-    de_paths = glob('{:s}/*'.format(opt.de_root))
-    st_path = glob('{:s}/*'.format(opt.st_root))
+    de_paths = sorted(glob('{:s}/*'.format(opt.de_root)))[-1500:]
+    st_path = sorted(glob('{:s}/*'.format(opt.st_root)))[-1500:]
     image_len = len(de_paths )
     for i in tqdm(range(image_len)):
         # only use one mask for all image
