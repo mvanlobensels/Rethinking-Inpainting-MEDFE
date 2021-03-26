@@ -5,6 +5,7 @@ import torch.nn as nn
 class ResnetBlock(nn.Module):
     def __init__(self, dim, dilation=1):
         super(ResnetBlock, self).__init__()
+        print('dilation=', dgit puilation)
         self.conv_block = nn.Sequential(
             nn.ReflectionPad2d(dilation),
             nn.Conv2d(in_channels=dim, out_channels=dim, kernel_size=3, padding=0, dilation=dilation, bias=False),
@@ -59,7 +60,7 @@ class Encoder(nn.Module):
         Encoder_3 = UnetSkipConnectionEBlock(ngf * 2, ngf * 4, norm_layer=norm_layer, use_dropout=use_dropout)
         Encoder_4 = UnetSkipConnectionEBlock(ngf * 4, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout)
         Encoder_5 = UnetSkipConnectionEBlock(ngf * 8, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout)
-        Encoder_6 = UnetSkipConnectionEBlock(ngf * 8, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout, innermost=True)
+        Encoder_6 = UnetSkipConnectionEBlock(ngf * 8, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout, innermost = True)
 
         blocks = []
         for _ in range(res_num):
