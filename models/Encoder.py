@@ -5,6 +5,7 @@ import torch.nn as nn
 class ResnetBlock(nn.Module):
     def __init__(self, dim, dilation=1):
         super(ResnetBlock, self).__init__()
+        print('dilation=', dilation)
         self.conv_block = nn.Sequential(
             nn.ReflectionPad2d(dilation),
             nn.Conv2d(in_channels=dim, out_channels=dim, kernel_size=3, padding=0, dilation=dilation, bias=False),
