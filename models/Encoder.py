@@ -59,8 +59,7 @@ class Encoder(nn.Module):
         Encoder_3 = UnetSkipConnectionEBlock(ngf * 2, ngf * 4, norm_layer=norm_layer, use_dropout=use_dropout)
         Encoder_4 = UnetSkipConnectionEBlock(ngf * 4, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout)
         Encoder_5 = UnetSkipConnectionEBlock(ngf * 8, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout)
-        Encoder_6 = UnetSkipConnectionEBlock(ngf * 8, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout)
-        Encoder_7 = UnetSkipConnectionEBlock(ngf * 8, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout, innermost=True)
+        Encoder_6 = UnetSkipConnectionEBlock(ngf * 8, ngf * 8, norm_layer=norm_layer, use_dropout=use_dropout, innermost=True)
 
         blocks = []
         for _ in range(res_num):
@@ -75,7 +74,6 @@ class Encoder(nn.Module):
         self.Encoder_4 = Encoder_4
         self.Encoder_5 = Encoder_5
         self.Encoder_6 = Encoder_6
-        self.Encoder_7 = Encoder_7
 
     def forward(self, input):
         y_1 = self.Encoder_1(input)
@@ -84,7 +82,6 @@ class Encoder(nn.Module):
         y_4 = self.Encoder_4(y_3)
         y_5 = self.Encoder_5(y_4)
         y_6 = self.Encoder_6(y_5)
-        y_7 = self.Encoder_7(y_6)
-        y_8 = self.middle(y_7)
+        y_7 = self.middle(y_6)
 
-        return y_1, y_2, y_3, y_4, y_5, y_7, y_8
+        return y_1, y_2, y_3, y_4, y_5, y_7
