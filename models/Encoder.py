@@ -4,6 +4,7 @@ import torch.nn as nn
 # Define the resnet block
 class ResnetBlock(nn.Module):
     def __init__(self, dim, dilation=1):
+        print("dilation = ", dilation)
         super(ResnetBlock, self).__init__()
         self.conv_block = nn.Sequential(
             nn.ReflectionPad2d(dilation),
