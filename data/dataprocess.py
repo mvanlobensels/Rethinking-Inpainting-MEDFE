@@ -26,6 +26,14 @@ class DataProcess(torch.utils.data.Dataset):
             self.de_paths = sorted(glob('{:s}/*'.format(de_root), recursive=True))
             self.st_paths = sorted(glob('{:s}/*'.format(st_root), recursive=True))
             self.mask_paths = sorted(glob('{:s}/*'.format(mask_root), recursive=True))
+
+            # Split into train set
+            n_images = len(self.de_paths)
+            train_split = int(n_images * 0.8)
+            print('TRAIN SPLIT: ', train_split)
+            self.de_paths = self.de_paths[:1000]
+            self.st_paths = self.st_paths[:1000]
+
             self.Train=True
         self.N_mask = len(self.mask_paths)
         print(self.N_mask)
@@ -37,6 +45,9 @@ class DataProcess(torch.utils.data.Dataset):
         de_img = self.img_transform(de_img.convert('RGB'))
         st_img = self.img_transform(st_img .convert('RGB'))
         mask_img = self.mask_transform(mask_img.convert('RGB'))
+        # mask_img = torch.empty(*de_img.shape, dtype=torch.float32)
+        # mask_img[:, :, :] = 0.0
+        # mask_img[:, 64:(128+64), 64:(128+64)] = 1.0
         return de_img, st_img, mask_img
 
     def __len__(self):
